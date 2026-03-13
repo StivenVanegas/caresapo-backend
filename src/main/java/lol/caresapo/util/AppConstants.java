@@ -17,10 +17,10 @@ public final class AppConstants {
 	
 	//tM62sWst4ZMm-biO_A0Rrxn7195xc3iZ_m-2sEB66V9ZBDrZWTE5zwWKAhYb1HWKpKHdYx7DR0edpg
 	//zxLTt02hjwZwllqBzpNfn8hey0ltGdj3NUH8JHW1QpHNQ9rFksJQvCVt_ZOCJ8XhVkB0FWhsoOkqtw
-	public static final String PUUID_LAN = "tM62sWst4ZMm-biO_A0Rrxn7195xc3iZ_m-2sEB66V9ZBDrZWTE5zwWKAhYb1HWKpKHdYx7DR0edpg";
-	public static final String PUUID_LAS = "b6CTkcNmeIwuaEDWNUpY7wgpgv7HubgD7jUsclQsuNnE3Qq2OQBUYvxTgPdZPABlACxQxhbAIp5ZHg";
-	public static final String PUUID_NA = "BQWjXt6W07vsnKF4Jm5a2bOWBqSp3pRMGzC0xuyFvCSh3wgthMVTlVmozvCcO0b5FxYfJoA7gCqXqA";
-	public static final String PUUID_EUW = "seeeYV6pIlfGOMjtTT8xeX7cJnm9pYi6tnMiGVOHn5hHKtAz8gACRzKrXJBO23vitMaHEXL0YVMkWg";
+	public static final String PUUID_LAN = "DCMJ4rwiJ-9EJpu-pdDKxO80UbFhVl3mTjjZfPxgzPYAcSIiy4BLl27Bjn_SCOOn_HqOkd-GufQwXw";
+	public static final String PUUID_LAS = "hC0FM2TQUlc8SJyYNZYKdlStUaoBa251_Zu40Y6NG5d3LKVCmaubTOxSn8EJRA2X4TR9IImlhPUbfQ";
+	public static final String PUUID_NA = "yWjKBilcrGb78TK0OvDr4VYsogQcnfXCuLnEVd2APWErcF_GFjYYlzkdqvO150FLZLfsHldW_4fdRQ";
+	public static final String PUUID_EUW = "oZtYFNiuGiwCwxcR07dk6O6s8GJNy89KVJYh4rthesGPflQlegFKuypP423NzH_Ju7ux-gb91mDJ2g";
 	
 	public static final List<ProfileDto> PROFILES = List.of(
 		new ProfileDto("LAN",PUUID_LAN,REGION_AMERICAS,"la1"),
