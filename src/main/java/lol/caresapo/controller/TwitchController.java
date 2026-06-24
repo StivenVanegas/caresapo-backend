@@ -1,5 +1,6 @@
 package lol.caresapo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,12 @@ public class TwitchController {
     @GetMapping("/live/{username}")
     public TwitchUser isLive(@PathVariable String username) {
         return twitchService.isStreamerLive(username);
+    }
+    
+    @GetMapping("/random-timeout")
+    public ResponseEntity<String> randomTimeout() {
+        String chosen = twitchService.timeoutRandomChatter();
+        return ResponseEntity.ok("Timeout aplicado a: " + chosen);
     }
 
 }
