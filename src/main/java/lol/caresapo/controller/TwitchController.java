@@ -27,7 +27,7 @@ public class TwitchController {
     @GetMapping("/random-timeout")
     public ResponseEntity<String> randomTimeout() {
         String chosen = twitchService.timeoutRandomChatter();
-        return ResponseEntity.ok("Timeout aplicado a: " + chosen);
+        return ResponseEntity.ok("@" + chosen + " ha sido alcanzado por una bala perdida o7");
     }
 
 }
