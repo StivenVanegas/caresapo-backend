@@ -159,7 +159,7 @@ public class TwitchServiceImpl implements TwitchService {
         Map<String, Object> banBody = Map.of(
             "data", Map.of(
                 "user_id", userId,
-                "duration", 10,
+                "duration", 300,
                 "reason", "¡Seleccionado por el bot del canal! 🎰"
             )
         );
@@ -172,7 +172,7 @@ public class TwitchServiceImpl implements TwitchService {
         );
 
         // 4. Anunciar en el chat
-        sendChatMessage("@" + userName + " ha sido alcanzado por una bala perdida o7");
+        //sendChatMessage("@" + userName + " ha sido alcanzado por una bala perdida o7");
 
         return userName;
     }
