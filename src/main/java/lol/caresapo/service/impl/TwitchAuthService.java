@@ -55,7 +55,6 @@ public class TwitchAuthService {
             + "&scope=moderator:read:chatters+moderator:manage:banned_users+user:write:chat";
     }
 
-    // Intercambiar el code por un access_token de usuario
     public void exchangeCodeForToken(String code) {
         String url = "https://id.twitch.tv/oauth2/token"
             + "?client_id=" + clientId
@@ -65,7 +64,7 @@ public class TwitchAuthService {
             + "&redirect_uri=" + redirectUri;
 
         Map response = restTemplate.postForObject(url, null, Map.class);
-        userAccessToken = (String) response.get("access_token");
+        saveTokenData(response); // ← guarda token, refreshToken y expiración
     }
     
     public String getUserAccessToken() {
