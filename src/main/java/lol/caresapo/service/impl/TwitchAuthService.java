@@ -1,5 +1,6 @@
 package lol.caresapo.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,9 @@ public class TwitchAuthService {
     private String redirectUri;
     
     private String userAccessToken;
+    
+    private String refreshToken;
+    private LocalDateTime tokenExpiration;
 
     public String getAccessToken() {
 
@@ -65,6 +69,43 @@ public class TwitchAuthService {
     }
     
     public String getUserAccessToken() {
+        if (isTokenExpired()) {
+            refreshAccessToken();
+        }
         return userAccessToken;
+    }
+    
+    private void refreshAccessToken() {
+        if (refreshToken == null) {
+            throw new IllegalStateException(
+                "No hay refresh token. Visita /twitch/authorize nuevamente."
+            );
+        }
+
+        String url = "https://id.twitch.tv/oauth2/token"
+            + "?client_id=" + clientId
+            + "&client_secret=" + clientSecret
+            + "&refresh_token=" + refreshToken
+            + "&grant_type=refresh_token";
+
+        Map response = restTemplate.postForObject(url, null, Map.class);
+        saveTokenData(response);
+    }
+
+    private void saveTokenData(Map response) {
+        userAccessToken = (String) response.get("access_token");
+        refreshToken = (String) response.get("refresh_token");
+
+        // Twitch devuelve expires_in en segundos (normalmente 14400 = 4 horas)
+        int expiresIn = (int) response.get("expires_in");
+
+        // Guardamos con 5 minutos de margen para renovar antes de que expire
+        tokenExpiration = LocalDateTime.now().plusSeconds(expiresIn).minusMinutes(5);
+    }
+
+    private boolean isTokenExpired() {
+        return userAccessToken == null
+            || tokenExpiration == null
+            || LocalDateTime.now().isAfter(tokenExpiration);
     }
 }
