@@ -6,5 +6,5 @@ public interface TwitchService {
 
 	TwitchUser isStreamerLive(String username);
 	
-	String timeoutRandomChatter();
+	String timeoutRandomChatter(Integer duration);
 }

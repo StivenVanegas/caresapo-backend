@@ -118,7 +118,7 @@ public class TwitchServiceImpl implements TwitchService {
     }
     
     @Override
-    public String timeoutRandomChatter() {
+    public String timeoutRandomChatter(Integer duration) {
     	//String token = authService.getAccessToken();
         HttpHeaders headers = buildHeaders();
 
@@ -159,7 +159,7 @@ public class TwitchServiceImpl implements TwitchService {
         Map<String, Object> banBody = Map.of(
             "data", Map.of(
                 "user_id", userId,
-                "duration", 300,
+                "duration", duration,
                 "reason", "¡Seleccionado por el bot del canal! 🎰"
             )
         );
