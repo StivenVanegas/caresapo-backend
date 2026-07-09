@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
@@ -18,8 +19,10 @@ import lol.caresapo.dto.TwitchStreamResponse;
 import lol.caresapo.dto.TwitchUser;
 import lol.caresapo.dto.TwitchUserResponse;
 import lol.caresapo.service.TwitchService;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class TwitchServiceImpl implements TwitchService {
 
 	@Value("${twitch.client.id}")
@@ -38,6 +41,8 @@ public class TwitchServiceImpl implements TwitchService {
     
     private final Random random = new Random();
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(TwitchServiceImpl.class);
+    
     @Override
     @Cacheable(value = "twitchCache", key = "#username")
     public TwitchUser isStreamerLive(String username) {
@@ -140,17 +145,25 @@ public class TwitchServiceImpl implements TwitchService {
         if (chatters == null || chatters.isEmpty()) {
             return "No hay chatters disponibles.";
         }
+        
+        log.info("CANTIDAD DE USUARIOS ENCONTRADOS: " + chatters.size());
 
         // Filtrar al moderador/bot de la lista
         chatters = chatters.stream()
             .filter(c -> !c.get("user_id").equals(moderatorId))
             .toList();
+        
+        log.info("CANTIDAD DE USUARIOS ENCONTRADOS: " + chatters.size());
+        
+        Integer num = random.nextInt(chatters.size());
 
         // 2. Elegir uno al azar
-        Map<String, String> chosen = chatters.get(random.nextInt(chatters.size()));
+        Map<String, String> chosen = chatters.get(num);
         String userId = chosen.get("user_id");
         String userName = chosen.get("user_login");
-
+        
+        log.info("USUARIO ESCOGIDO: #"+num + " "+ userName);
+        
         // 3. Aplicar timeout de 10 segundos
         String banUrl = "https://api.twitch.tv/helix/moderation/bans"
             + "?broadcaster_id=" + broadcasterId
@@ -170,6 +183,8 @@ public class TwitchServiceImpl implements TwitchService {
             new HttpEntity<>(banBody, headers),
             Void.class
         );
+        
+        log.info(chatters.toString());
 
         // 4. Anunciar en el chat
         //sendChatMessage("@" + userName + " ha sido alcanzado por una bala perdida o7");
