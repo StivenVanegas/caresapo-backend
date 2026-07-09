@@ -130,7 +130,8 @@ public class TwitchServiceImpl implements TwitchService {
         // 1. Obtener chatters
         String chattersUrl = "https://api.twitch.tv/helix/chat/chatters"
             + "?broadcaster_id=" + broadcasterId
-            + "&moderator_id=" + moderatorId;
+            + "&moderator_id=" + moderatorId
+            + "&first=1000";
 
         ResponseEntity<Map> chattersResponse = restTemplate.exchange(
             chattersUrl,
@@ -183,8 +184,6 @@ public class TwitchServiceImpl implements TwitchService {
             new HttpEntity<>(banBody, headers),
             Void.class
         );
-        
-        log.info(chatters.toString());
 
         // 4. Anunciar en el chat
         //sendChatMessage("@" + userName + " ha sido alcanzado por una bala perdida o7");
