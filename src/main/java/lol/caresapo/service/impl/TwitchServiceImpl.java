@@ -131,7 +131,7 @@ public class TwitchServiceImpl implements TwitchService {
         String chattersUrl = "https://api.twitch.tv/helix/chat/chatters"
             + "?broadcaster_id=" + broadcasterId
             + "&moderator_id=" + moderatorId
-            + "&first=1000";;
+            + "&first=1000";
 
         ResponseEntity<Map> chattersResponse = restTemplate.exchange(
             chattersUrl,
